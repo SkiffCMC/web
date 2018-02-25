@@ -4,6 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { DpsChartModule } from './dps-chart/dps-chart.module';
 
+import { StackGeneratorService } from './stack-generator.service';
+import { MultipleStacksService } from './multiple-stacks.service';
+
+
 
 @NgModule({
   declarations: [
@@ -12,7 +16,7 @@ import { DpsChartModule } from './dps-chart/dps-chart.module';
   imports: [
     BrowserModule, DpsChartModule
   ],
-  providers: [],
+  providers: [ MultipleStacksService, StackGeneratorService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

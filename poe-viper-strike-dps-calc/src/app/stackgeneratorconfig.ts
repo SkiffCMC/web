@@ -1,14 +1,14 @@
 export class StackGeneratorConfig {
-  dps = 100;
-  aps = 1;
+  public dps = 100;
+  public aps = 1;
   baseNSBonus = 0.05;
   baseGABonus = 0.02;
   recently = 4;
-  hasNoxiousStrike = false;
-  hasGrowingAgony = false;
-  durationModifier = 0;
-  stackDurationInSeconds = 4;
-  durationInSeconds = 10;
+  public hasNoxiousStrike = false;
+  public hasGrowingAgony = false;
+  public durationModifier = 0;
+  public stackDurationInSeconds = 4;
+  public durationInSeconds = 10;
   public setParameters(dps?: number, aps?: number, hasNoxiousStrike?: boolean,
     hasGrowingAgony?: boolean, durationModifier?: number, stackDurationInSeconds?: number,
     durationInSeconds?: number): StackGeneratorConfig {

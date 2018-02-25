@@ -1,12 +1,19 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { DpsChartComponent } from './dps-chart/dps-chart.component'
+import { ChartsModule } from 'ng2-charts';
+import { FormsModule } from '@angular/forms';
+import { StackGeneratorService } from './stack-generator.service';
+import { MultipleStacksService } from './multiple-stacks.service';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ FormsModule, ChartsModule ],
       declarations: [
         AppComponent,DpsChartComponent
       ],
+      providers: [ MultipleStacksService,StackGeneratorService ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

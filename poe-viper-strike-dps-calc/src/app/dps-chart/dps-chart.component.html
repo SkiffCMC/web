@@ -1,25 +1,26 @@
+<input [(ngModel)]="localConfig.dps">DPS
+<br/>
+<input [(ngModel)]="localConfig.aps">APS
+<br/>
+<input [(ngModel)]="localConfig.hasNoxiousStrike">:has Noxious Strike?
+<br/>
+<input [(ngModel)]="localConfig.hasGrowingAgony">:has Growing Agony?
+<br/>
+<input [(ngModel)]="localConfig.durationInSeconds">duration in seconds
 <div class="row">
   <div class="col-md-6">
     <div style="display: block;">
-    <canvas baseChart width="400" height="400"></canvas><!--  
-    <canvas baseChart width="400" height="400"
+    <canvas baseChart width= "400" height= "400"
                  [datasets]="lineChartData"
                   [labels]="lineChartLabels"
                   [options]="lineChartOptions"
                   [colors]="lineChartColors"
                   [legend]="lineChartLegend"
                   [chartType]="lineChartType">
-                </canvas>-->
+                </canvas>
     </div>
   </div>
   <div class="col-md-6" style="margin-bottom: 10px">
-    <table class="table table-responsive table-condensed">
-      <tr>
-        <th *ngFor="let label of lineChartLabels">{{label}}</th>
-      </tr>
-      <tr *ngFor="let d of lineChartData">
-        <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-      </tr>
-    </table>
+     <button (click)="update()">Update</button>
   </div>
 </div>
