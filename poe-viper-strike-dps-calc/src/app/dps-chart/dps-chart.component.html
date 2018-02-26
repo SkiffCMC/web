@@ -1,12 +1,12 @@
-<input [(ngModel)]="localConfig.dps">DPS
+<input [(ngModel)]="localConfig.dps" #dps (ngModelChange)="onChange(dps.value)">Damage per second from one non-modified poison stack
 <br/>
-<input [(ngModel)]="localConfig.aps">APS
+<input [(ngModel)]="localConfig.aps" #aps (ngModelChange)="onChange(aps.value)">Attacks per second
 <br/>
-<input [(ngModel)]="localConfig.hasNoxiousStrike">:has Noxious Strike?
+<input type="checkbox" [checked]="localConfig.hasNoxiousStrike" (change)="localConfig.hasNoxiousStrike = !localConfig.hasNoxiousStrike; onChange()" />Enable Noxious Strike bonus
 <br/>
-<input [(ngModel)]="localConfig.hasGrowingAgony">:has Growing Agony?
+<input type="checkbox" [checked]="localConfig.hasGrowingAgony" (change)="localConfig.hasGrowingAgony = !localConfig.hasGrowingAgony; onChange()" />Enable Growing Agony bonus
 <br/>
-<input [(ngModel)]="localConfig.durationInSeconds">duration in seconds
+<input [(ngModel)]="localConfig.durationInSeconds" #duration (ngModelChange)="onChange(duration.value)">Duration of non-stop attacking in seconds
 <div class="row">
   <div class="col-md-6">
     <div style="display: block;">
@@ -19,8 +19,5 @@
                   [chartType]="lineChartType">
                 </canvas>
     </div>
-  </div>
-  <div class="col-md-6" style="margin-bottom: 10px">
-     <button (click)="update()">Update</button>
   </div>
 </div>

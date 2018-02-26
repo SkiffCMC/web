@@ -30,6 +30,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to POE Viper Strike poison DPS calculator!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to SkiffCMC\'s POE Viper Strike poison DPS calculator!');
   }));
 });

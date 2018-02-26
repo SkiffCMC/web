@@ -15,11 +15,12 @@ export class DpsChartComponent implements OnInit {
   }
   // lineChart
   public lineChartData: Array<any> = [
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
+    {data: [], label: ''}
   ];
-  public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabels: Array<any> = [];
   public lineChartOptions: any = {
-    responsive: false
+    responsive: false,
+    scales : { yAxes: [{ ticks: { beginAtZero : true, stepValue : 10, max : 100 } }] }
   };
   public lineChartColors: Array<any> = [
     { // grey
@@ -37,12 +38,18 @@ export class DpsChartComponent implements OnInit {
   public update(conf?: StackGeneratorConfig) {
     const config = conf ? conf : this.localConfig;
     const result = this.stackGenerator.generateStacksWithConfig(config);
+    const maxDps = this.stackGenerator.getCurrentMaxDps();
+    console.log('My msxDps is ' + maxDps);
     this.lineChartData[0].data = result.map((val) => val.getDps());
     this.lineChartData[0].label = 'Poison DPS';
     this.lineChartLabels = result.map((val) => val.getStartTime().toLocaleString() + '-' + val.getEndTime().toLocaleString());
+    this.lineChartOptions.scales.yAxes[0].ticks.max = maxDps;
   }
 
   ngOnInit() {
   }
 
+  public onChange(parameter?: any): void {
+    this.update();
+  }
 }

@@ -32,4 +32,7 @@ export class StackGeneratorService {
     this.conf = conf;
     return this.generateStacks();
   }
+  public getCurrentMaxDps(): number {
+    return this.multipleStacks.getCurrentMaxDps();
+  }
 }

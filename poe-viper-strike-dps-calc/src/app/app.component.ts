@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'POE Viper Strike poison DPS calculator';
+  dev = 'SkiffCMC';
 }
