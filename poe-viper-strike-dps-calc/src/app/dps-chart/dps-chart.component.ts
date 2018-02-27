@@ -1,3 +1,4 @@
+import { SingleStack } from '../single-stack';
 import { StackGeneratorService } from '../stack-generator.service';
 import { StackGeneratorConfig } from '../stackgeneratorconfig';
 import { Component, OnInit } from '@angular/core';
@@ -10,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class DpsChartComponent implements OnInit {
 
   public localConfig = new StackGeneratorConfig();
+  private numberOfBars = 25;
   constructor(private stackGenerator: StackGeneratorService) {
     this.update();
   }
@@ -37,9 +39,16 @@ export class DpsChartComponent implements OnInit {
 
   public update(conf?: StackGeneratorConfig) {
     const config = conf ? conf : this.localConfig;
-    const result = this.stackGenerator.generateStacksWithConfig(config);
+    const intervals = new Array<SingleStack>();
+    const step = this.localConfig.durationInSeconds * this.localConfig.aps < this.numberOfBars ? 1 / this.localConfig.aps : this.localConfig.durationInSeconds / this.numberOfBars;
+    for (let i = 0; (i < this.numberOfBars) && (i < this.localConfig.durationInSeconds * this.localConfig.aps); i++) {
+      intervals.push(new SingleStack(1, i * step, step));
+    }
+    const result = this.stackGenerator.generateStacksWithConfig(config, intervals);
+    // this.stacksCount = result.length;
+    // this.endTime = result[result.length - 1].getEndTime();
     const maxDps = this.stackGenerator.getCurrentMaxDps();
-    console.log('My msxDps is ' + maxDps);
+    // this.textConfig = '';
     this.lineChartData[0].data = result.map((val) => val.getDps());
     this.lineChartData[0].label = 'Poison DPS';
     this.lineChartLabels = result.map((val) => val.getStartTime().toLocaleString() + '-' + val.getEndTime().toLocaleString());

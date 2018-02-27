@@ -70,6 +70,19 @@ describe('MultipleStacksService', () => {
     expect(service.getActiveStacksCount(12.1)).toEqual(1);
   }));
   
+  it('counts recent and active stacks correctly', inject([MultipleStacksService], (service: MultipleStacksService) => {
+    service.addStack(new SingleStack(100,0,2));
+    service.addStack(new SingleStack(160,2,2));
+    service.addStack(new SingleStack(130,4,2));
+    const intervals = new Array<SingleStack>();
+    intervals.push(new SingleStack(1,0,3));
+    intervals.push(new SingleStack(1,3,3));
+    const result = service.getIntegratedStacks(intervals);
+    expect(result.length).toEqual(2);
+    expect(result[0].getDps()).toEqual(120);
+    expect(result[1].getDps()).toEqual(140);
+  }));
+
    it('resets correctly', inject([MultipleStacksService], (service: MultipleStacksService) => {
     service.addStack(new SingleStack(100,1,4));
     service.addStack(new SingleStack(100,2,8));

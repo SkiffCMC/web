@@ -33,6 +33,47 @@ export class MultipleStacksService {
     });
     return totalDps;
   }
+  private getStacksInInterval(startTime: number, endTime: number): Array<SingleStack> {
+    const result = new Array<SingleStack>();
+    this.stacks.forEach(val => {
+      if ((val.getStartTime() >= startTime) && (val.getEndTime() <= endTime) ) {
+        result.push(val);
+      }
+      if ((val.getStartTime() < startTime) && (val.getEndTime() > endTime) ) {
+        result.push(new SingleStack(val.getDps(), startTime, endTime - startTime));
+      }
+      if ((val.getStartTime() < startTime) && (val.getEndTime() <= endTime)  && (val.getEndTime() > startTime)) {
+        result.push(new SingleStack(val.getDps(), startTime, val.getEndTime() - startTime));
+      }
+      if ((val.getStartTime() >= startTime) && (val.getEndTime() > endTime) && (endTime > val.getStartTime())) {
+        result.push(new SingleStack(val.getDps(), val.getStartTime(), endTime - val.getStartTime()));
+      }
+    });
+    return result;
+  }
+  private integrateToSingleStack(stacks: Array<SingleStack>): SingleStack {
+    if (stacks.length === 0) {
+      return new SingleStack(0, 0, 0);
+    }
+    let resultDamage = 0;
+    let resultDuration = 0;
+    let resultStartTime = stacks[0].getStartTime();
+    stacks.forEach(val => {
+      if (resultStartTime > val.getStartTime()) {
+        resultStartTime = val.getStartTime();
+      }
+      resultDamage += val.getTotalDamage();
+      resultDuration += val.getDuration();
+    });
+    return new SingleStack(resultDamage / resultDuration, resultStartTime, resultDuration);
+  }
+  public getIntegratedStacks(intervals: Array<SingleStack>): Array<SingleStack> {
+    const result = new Array<SingleStack>();
+    intervals.forEach((val) =>  {
+      result.push(this.integrateToSingleStack(this.getStacksInInterval(val.getStartTime(), val.getEndTime())));
+    });
+    return result;
+  }
   public getDpsIntervals(): Array<SingleStack> {
     const keySeconds: Array<number> = new Array<number>();
     const pseudoStacks: Array<SingleStack> = new Array<SingleStack>();
@@ -53,6 +94,7 @@ export class MultipleStacksService {
         );
       }
     }
+    this.stacks = pseudoStacks;
     return pseudoStacks;
   }
   public getRecentStacksCount(recently: number, currentTime: number): number {

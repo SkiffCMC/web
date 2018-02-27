@@ -24,5 +24,9 @@ describe('StackGeneratorService', () => {
     expect(result[1].getDuration()).toEqual(1);
     expect(result[5].getDuration()).toBeCloseTo(0.2);
     expect(result[5].getDps()).toBeCloseTo(526);
+    conf = new StackGeneratorConfig().setParameters(100,1,false,false,0.15,4,10);
+    result = service.generateStacksWithConfig(conf);
+    expect(result.length).toEqual(19);
+    expect(result[result.length-1].getEndTime()).toBeCloseTo(13.6);
   }));
 });

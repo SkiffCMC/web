@@ -34,4 +34,7 @@ export class SingleStack {
   public setDps(dps: number) {
     this.dps = dps;
   }
+  public getTotalDamage(): number {
+    return this.dps * this.duration;
+  }
 }
