@@ -26,7 +26,7 @@ export class DpsChartComponent implements OnInit {
   };
   public lineChartColors: Array<any> = [
     { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
+      backgroundColor: 'rgba(48,209,77,0.2)',
       borderColor: 'rgba(148,159,177,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
